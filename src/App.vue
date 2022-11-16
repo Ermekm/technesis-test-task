@@ -70,13 +70,14 @@ export default {
 }
 
 .box-one {
-  width: 300px;
+  max-width: 300px;
 }
 
 .box-two {
-  width: 400px;
+  max-width: 400px;
 }
 
 .box-three {
+  max-width: 600px;
 }
 </style>

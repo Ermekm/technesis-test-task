@@ -4,9 +4,9 @@
     :class="[align === 'left' ? 'align-left' : 'align-space-between']"
     ref="wrapper"
   >
-    <template class="tag-list__group" v-for="(tag, index) in tagList">
+    <template class="tag-list__group" v-for="(tag, index) in filteredTags">
       <v-icon v-if="index" :key="'icon' + tag.id">mdi-circle-small</v-icon>
-      <div class="tag-list__item test" :key="'item' + tag.id">
+      <div class="tag-list__item" :key="'item' + tag.id">
         <v-icon class="tag-list__item-icon"> mdi-{{ tag.icon }}</v-icon>
         <p class="tag-list__item-title">{{ tag.title }}</p>
       </div>
@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       wrapperWidth: 0,
-      filteredTags: JSON.parse(JSON.stringify(this.tags)),
+      tagList: JSON.parse(JSON.stringify(this.tags)),
     };
   },
 
@@ -52,23 +52,23 @@ export default {
       }
     },
     filterTags() {
-      let tagListWidth = this.filteredTags[0].width;
+      let tagListWidth = this.tagList[0].width;
       let i = 1;
-      console.log(this.filteredTags);
-      while (i < this.filteredTags.length) {
+      console.log(this.tagList);
+      while (i < this.tagList.length) {
         if (
-          tagListWidth + this.filteredTags[i].width + 24 <
+          tagListWidth + this.tagList[i].width + 24 <
           this.wrapperWidth
         ) {
-          this.filteredTags[i].show = true;
-          tagListWidth += this.filteredTags[i].width + 24;
+          this.tagList[i].show = true;
+          tagListWidth += this.tagList[i].width + 24;
           i++;
         } else {
           break;
         }
       }
-      while (i < this.filteredTags.length) {
-        this.filteredTags[i].show = false;
+      while (i < this.tagList.length) {
+        this.tagList[i].show = false;
         i++;
       }
     },
@@ -78,16 +78,16 @@ export default {
       let j = 0;
       for (let i = 0; i < tagItems.length; i++) {
         if ([...tagItems[i].classList].includes("tag-list__item")) {
-          this.filteredTags[j].width = tagItems[i].offsetWidth;
+          this.tagList[j].width = tagItems[i].offsetWidth;
           j++;
         }
       }
     },
   },
   computed: {
-    tagList() {
+    filteredTags() {
       const wrapperWidth = this.wrapperWidth;
-      return this.filteredTags.filter((tag) => {
+      return this.tagList.filter((tag) => {
         return tag.show === undefined ? true : tag.show;
       });
     },
