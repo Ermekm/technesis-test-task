@@ -1,6 +1,6 @@
 <template>
   <div
-    class="wrapper"
+    class="tag-list"
     :class="[align === 'left' ? 'align-left' : 'align-space-between']"
     ref="wrapper"
   >
@@ -96,7 +96,7 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
+.tag-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
